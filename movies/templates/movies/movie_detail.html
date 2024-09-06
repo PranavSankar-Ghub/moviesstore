@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ movie.title }}{% endblock %}
+
+{% block content %}
+<div class="row mt-4">
+    <div class="col-md-4">
+        {% if movie.poster %}
+        <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }} Poster">
+        {% else %}
+        <img src="https://via.placeholder.com/300x450" class="card-img-top" alt="Placeholder Poster">
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ movie.release_date }}</h6>
+                <p class="card-text"><strong>Genre:</strong> {{ movie.genre.all|join:", " }}</p>
+                <p class="card-text"><strong>Actors:</strong> {{ movie.actors.all|join:", " }}</p>
+                <p class="card-text"><strong>Director:</strong> {{ movie.director }}</p>
+                <p class="card-text">{{ movie.description }}</p>
+                <a href="{% url 'movies_list' %}" class="btn btn-primary">Back to Movies List</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

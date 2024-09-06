@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Movies List{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        {% for movie in movies %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                {% if movie.poster %}
+                <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}">
+                {% else %}
+                <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <p class="card-text">{{ movie.synopsis|truncatewords:20 }}</p>
+                    <p class="card-text"><small class="text-muted">Release Date: {{ movie.release_date }}</small></p>
+                    <a href="{% url 'movie_detail' movie.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No movies found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
